@@ -2,12 +2,11 @@ package edu.temple.signupform
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
-import kotlin.checkNotNull as checkNotNull1
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -16,19 +15,30 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         findViewById<Button>(R.id.Button)
             .setOnClickListener {
-                val name = checkNotNull1(findViewById<EditText>(R.id.name).text)
-                val email = checkNotNull1(findViewById<EditText>(R.id.email).text)
-                val pass1 = checkNotNull1(findViewById<EditText>(R.id.password1).text)
-                val pass2 = checkNotNull1(findViewById<EditText>(R.id.password2).text)
-                Log.d("Name", "$name ")
-                if(pass1 == pass2){
-
-                    //findViewById<TextView>(R.id.message).text="Welcome, ${name}, to the SignUpForm App"
+                val name = findViewById<EditText>(R.id.name).text
+                val email = findViewById<EditText>(R.id.email).text
+                val pass1 = findViewById<EditText>(R.id.password1).text
+                val pass2 = findViewById<EditText>(R.id.password2).text
+                if (name.isNullOrBlank() ) {
+                    findViewById<EditText>(R.id.name).error=("Missing Data")
                 }
-                else {
-
+                else if(email.isNullOrBlank()){
+                    findViewById<EditText>(R.id.email).error=("Missing Data")
+                }
+                else if(pass1.isNullOrBlank()){
+                    findViewById<EditText>(R.id.name).error=("Password Missing")
+                }
+                else{
+                    if(pass1.toString() == pass2.toString()){
+                        findViewById<TextView>(R.id.Message).text=("Welcome, ${name}, to the SignUpForm App")
+                    }
+                    else {
+                        findViewById<TextView>(R.id.password1).error=("Passwords do not match")
+                        findViewById<TextView>(R.id.password2).error=("Passwords do not match")
+                    }
                 }
             }
-
     }
 }
+
+
